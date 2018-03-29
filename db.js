@@ -3,7 +3,7 @@ const pokemon = require('./models/pokemon');
 const user = require('./models/user');
 
 const configs = {
-  user: 'postgres',
+  user: '1ung',
   host: '127.0.0.1',
   database: 'pokemons',
   port: 5432

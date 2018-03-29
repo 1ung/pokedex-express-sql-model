@@ -13,7 +13,9 @@ const get = (db) => {
         response.sendStatus(500);
       } else {
         // render pokemon.handlebars in the pokemon folder
-        response.render('pokemon/pokemon', { pokemon: queryResult.rows[0] });
+        response.render('pokemon/pokemon', {
+          pokemon: queryResult.rows[0]
+        });
       }
     });
   };
@@ -22,12 +24,30 @@ const get = (db) => {
 const updateForm = (db) => {
   return (request, response) => {
     // TODO: Add logic here
+    db.pokemon.get(request.params.id, (error, queryResult) => {
+      if (error) {
+        console.error('error getting pokemon:', error);
+        response.sendStatus(500);
+      } else {
+        response.render('pokemon/edit', {
+          pokemon: queryResult.rows[0]
+        });
+      }
+    });
   };
 };
 
 const update = (db) => {
   return (request, response) => {
     // TODO: Add logic here
+    db.pokemon.update(request.body, (error, queryResult) => {
+      if (error) {
+        console.error('error updating pokemon:', error);
+        response.sendStatus(500);
+      } else {
+        response.redirect('/pokemons/' + request.params.id);
+      }
+    });
   };
 };
 
