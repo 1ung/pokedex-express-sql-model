@@ -24,14 +24,14 @@ const get = (db) => {
 const updateForm = (db) => {
   return (request, response) => {
     // TODO: Add logic here
+    let context = {}
     db.pokemon.get(request.params.id, (error, queryResult) => {
       if (error) {
         console.error('error getting pokemon:', error);
         response.sendStatus(500);
       } else {
-        response.render('pokemon/edit', {
-          pokemon: queryResult.rows[0]
-        });
+        context.pokemon = queryResult.rows[0];
+        response.render('pokemon/edit', context);
       }
     });
   };
